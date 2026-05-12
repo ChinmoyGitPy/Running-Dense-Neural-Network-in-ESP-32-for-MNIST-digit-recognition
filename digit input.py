@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw
 
 PORT         = "COM3"
 BAUD         = 115200
-BOOT_WAIT    = 10          # seconds to wait for ESP32 boot
+BOOT_WAIT    = 10          
 CANVAS_SIZE  = 280
 BRUSH_RADIUS = 14
 
@@ -107,7 +107,7 @@ class DigitDrawer:
                 rtscts   = False
             )
 
-            # Count down so user sees progress
+            
             for i in range(BOOT_WAIT, 0, -1):
                 self.root.after(0, lambda s=i: self.status_var.set(
                     f"Waiting for ESP32 boot... {s}s"))
@@ -116,7 +116,7 @@ class DigitDrawer:
             self.ser.reset_input_buffer()
             self.ready = True
 
-            # Enable send button
+            
             self.root.after(0, lambda: self.send_btn.config(
                 state="normal", bg="#00d4ff", fg="#1a1a2e",
                 activebackground="#00ffff"))
@@ -172,7 +172,7 @@ class DigitDrawer:
     def _show_result(self, digit, scores):
         self.result_var.set(str(digit))
         self.scores_var.set(scores)
-        self.status_var.set("Done ✓  — draw another digit")
+        self.status_var.set("Done, draw another digit")
 
 if __name__ == "__main__":
     root = tk.Tk()
